@@ -20,6 +20,8 @@ commit-date: 2025-12-08
 host: x86_64-unknown-linux-gnu
 release: 1.92.0
 LLVM version: 21.1.3
+
+OS: Ubuntu 25.10 (Questing Quokka) x86_64
 ```
 
 # All 12 tests pass. Here's a summary of the test coverage:
