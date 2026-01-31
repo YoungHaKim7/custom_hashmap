@@ -1,6 +1,9 @@
 # Source
 - [(230311)Faster than Rust and C++: the PERFECT hash table | strager](https://youtu.be/DMQ_HcNSOAI?si=jKP1DEvRvb8uqozz)
 
+# hashmap std를 활용한 쉬운 버젼
+- https://github.com/YoungHaKim7/hashmap_easy_ver
+
 # Result
 
 ```bash
