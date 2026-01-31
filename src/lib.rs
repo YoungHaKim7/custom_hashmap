@@ -1,6 +1,6 @@
 use std::{collections::HashMap, hash::Hash};
 
-const CHACHE_SIZE: usize = 128;
+pub const CHACHE_SIZE: usize = 128;
 
 struct Entry<K, V> {
     key: K,
@@ -147,7 +147,7 @@ where
             .and_then(move |&i| entries[i].val.as_mut())
     }
 
-    fn empty(&mut self, key: &K) -> bool {
+    pub fn empty(&self) -> bool {
         self.map.is_empty()
     }
 

@@ -151,3 +151,20 @@ fn test_capacity_of_one() {
     assert_eq!(cache.get(&1), None);
     assert_eq!(cache.get(&2), Some(&20));
 }
+
+#[test]
+fn test_empty() {
+    let mut cache: LRUCache<i32, i32> = LRUCache::new(3);
+    assert!(cache.empty());
+
+    cache.insert(1, 10);
+    assert!(!cache.empty());
+
+    cache.remove(&1);
+    assert!(cache.empty());
+}
+
+#[test]
+fn test_chache_size() {
+    assert_eq!(CHACHE_SIZE, 128);
+}
