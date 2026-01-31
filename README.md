@@ -27,10 +27,55 @@ LLVM version: 21.1.3
 OS: Ubuntu 25.10 (Questing Quokka) x86_64
 ```
 
+# `cargo bench`
+
+```bash
+⏺ Fixed. The issues were:
+
+  1. Missing closing parenthesis on line 7 (b.iter(|| ... needed )))
+  2. Missing closing brace and comma on line 9-10
+  3. Wrong type: 20.0 is an ambiguous float, but AssemblyHash is only implemented for integers (u32, u64, i32, etc.), not floats. Changed to 20u32
+  4. Removed unused black_box import
+
+  Benchmarks now run successfully:
+  - std Hashmap test: ~2.07 ns
+  - my assembly hash: ~313 ps
+```
+
+- `cargo bench`
+
+```bash
+$ cargo bench
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/release/deps/custom_hashmap-ebd04ccf9383b06d)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running benches/std_hashmap_my_hashmap.rs (target/release/deps/std_hashmap_my_hashmap-45274e4b09315ee0)
+std Hashmap test        time:   [2.0570 ns 2.0577 ns 2.0586 ns]
+                        change: [−0.8708% −0.7296% −0.5511%] (p = 0.00 < 0.05)
+                        Change within noise threshold.
+Found 9 outliers among 100 measurements (9.00%)
+  3 (3.00%) high mild
+  6 (6.00%) high severe
+
+my assembly hash        time:   [310.52 ps 310.61 ps 310.72 ps]
+                        change: [−0.9499% −0.7834% −0.6111%] (p = 0.00 < 0.05)
+                        Change within noise threshold.
+Found 11 outliers among 100 measurements (11.00%)
+  2 (2.00%) high mild
+  9 (9.00%) high severe
+
+```
+
 # ChatGPT로 코드 리뷰 받고 더 최적화
 - https://github.com/YoungHaKim7/custom_hashmap/commit/de36bbc8529fdeae1a906a83c8c9e77f44e66a71
-- `std::HashMap` 완전히 제거
-  - https://github.com/YoungHaKim7/custom_hashmap/commit/8c4f9728a07bb12f9fe5b8a3b1160360c6fa82ef
 
 # Assembly 기존거 ->  AssemblyCode로 변환 
 
