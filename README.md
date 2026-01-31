@@ -33,3 +33,19 @@
   Changes to tests/custom_hashmap_test.rs:
   1. Added test_empty() - tests that the cache reports empty correctly
   2. Added test_chache_size() - tests that the constant equals 128
+
+
+# `asm` Fixes:
+  1. Typo fixed: .look_up_failre → .look_up_failure
+  2. Length check corrected: Changed from cmp rsi, 1 / jbe to cmp rsi, 4 / jb
+    - Your original code would allow length 2, but then [rdi+rsi-2] = [rdi] would load the same bytes twice
+    - Need at least 4 bytes to get 2 distinct bytes from start + 2 distinct bytes from end
+  3. Instruction format: Comments are now on the same line as the instructions
+
+  How it works:
+  - rdi = string pointer
+  - rsi = string length
+  - Returns a 32-bit hash in eax:
+    - Upper 16 bits = first 2 bytes of string
+    - Lower 16 bits = last 2 bytes of string
+  

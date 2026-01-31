@@ -1,4 +1,6 @@
-use std::{collections::HashMap, hash::Hash};
+use std::collections::HashMap;
+
+mod hash;
 
 pub const CHACHE_SIZE: usize = 128;
 
@@ -19,7 +21,7 @@ pub struct LRUCache<K, V> {
 
 impl<K, V> LRUCache<K, V>
 where
-    K: Eq + Hash + Clone,
+    K: Eq + AssemblyHash + Clone,
 {
     pub fn new(capacity: usize) -> Self {
         LRUCache {
