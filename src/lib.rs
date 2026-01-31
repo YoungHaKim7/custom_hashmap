@@ -9,7 +9,7 @@ struct Entry<K, V> {
     next: Option<usize>,
 }
 
-struct LRUCache<K, V> {
+pub struct LRUCache<K, V> {
     capacity: usize,
     head: Option<usize>,
     tail: Option<usize>,
@@ -21,7 +21,7 @@ impl<K, V> LRUCache<K, V>
 where
     K: Eq + Hash + Clone,
 {
-    fn new(capacity: usize) -> Self {
+    pub fn new(capacity: usize) -> Self {
         LRUCache {
             capacity,
             head: None,
@@ -31,7 +31,7 @@ where
         }
     }
 
-    fn insert(&mut self, key: K, value: V) -> Option<V> {
+    pub fn insert(&mut self, key: K, value: V) -> Option<V> {
         if self.map.contains_key(&key) {
             self.access(&key);
             let entry = &mut self.entries[self.head.unwrap()];
@@ -66,7 +66,7 @@ where
         self.head = Some(i)
     }
 
-    fn contains(&self, key: &K) -> bool {
+    pub fn contains(&self, key: &K) -> bool {
         self.map.contains_key(key)
     }
 
@@ -102,11 +102,11 @@ where
         }
     }
 
-    fn len(&self) -> usize {
+    pub fn len(&self) -> usize {
         self.map.len()
     }
 
-    fn remove(&mut self, key: &K) -> Option<V> {
+    pub fn remove(&mut self, key: &K) -> Option<V> {
         self.map.remove(key).map(|index| {
             self.remove_from_list(index);
             self.entries[index].val.take().unwrap()
@@ -125,7 +125,7 @@ where
         }
     }
 
-    fn get(&mut self, key: &K) -> Option<&V> {
+    pub fn get(&mut self, key: &K) -> Option<&V> {
         if self.contains(key) {
             self.access(key);
         }
@@ -136,7 +136,7 @@ where
             .and_then(move |&i| entries[i].val.as_ref())
     }
 
-    fn get_mut(&mut self, key: &K) -> Option<&mut V> {
+    pub fn get_mut(&mut self, key: &K) -> Option<&mut V> {
         if self.contains(key) {
             self.access(key);
         }
@@ -151,7 +151,7 @@ where
         self.map.is_empty()
     }
 
-    fn is_full(&self) -> bool {
+    pub fn is_full(&self) -> bool {
         self.map.len() == self.capacity
     }
 }
