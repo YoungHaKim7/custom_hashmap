@@ -1,8 +1,5 @@
-use std::collections::HashMap;
-use std::hash::Hash;
-
 mod hash;
-pub use hash::AssemblyHash;
+pub use hash::{AssemblyHash, CustomHashMap};
 
 pub const CACHE_SIZE: usize = 128;
 
@@ -17,20 +14,20 @@ pub struct LRUCache<K, V> {
     capacity: usize,
     head: Option<usize>, // MRU
     tail: Option<usize>, // LRU
-    map: HashMap<K, usize>,
+    map: CustomHashMap<K, usize>,
     entries: Vec<Entry<K, V>>,
 }
 
 impl<K, V> LRUCache<K, V>
 where
-    K: Eq + Hash + Clone,
+    K: Eq + AssemblyHash + Clone,
 {
     pub fn new(capacity: usize) -> Self {
         Self {
             capacity,
             head: None,
             tail: None,
-            map: HashMap::new(),
+            map: CustomHashMap::new(),
             entries: Vec::with_capacity(capacity),
         }
     }
@@ -76,7 +73,7 @@ where
     }
 
     fn access(&mut self, key: &K) {
-        let i = self.map[key];
+        let i = *self.map.get(key).unwrap();
 
         if Some(i) == self.head {
             return; // already MRU

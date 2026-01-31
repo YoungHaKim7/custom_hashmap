@@ -177,3 +177,22 @@ impl AssemblyHash for &str {
     - Lower 16 bits = last 2 bytes of string
   
 
+
+# (assembly최종 수정) All tests pass. The implementation is complete.
+
+  Summary
+
+  I've successfully replaced std::collections::HashMap with a custom CustomHashMap that uses your assembly hash function. Here's what was done:
+
+  Changes to src/hash.rs:
+  - Simplified AssemblyHash trait to just provide assembly_hash(&self) -> u32
+  - Implemented the trait for String, &str, and common integer types (u32, u64, usize, i32, i64, isize)
+  - Created CustomHashMap<K, V> using open addressing with linear probing
+  - The hashmap uses your look_up_identifier assembly function for hashing
+
+  Changes to src/lib.rs:
+  - Replaced std::collections::HashMap with CustomHashMap
+  - Fixed trait bounds from AssemblyHash<K, V> to just AssemblyHash
+  - Fixed indexing operation to use get() instead of []
+
+  The LRU cache now uses your custom assembly hash implementation exclusively, without any dependency on std::hash::Hash.
