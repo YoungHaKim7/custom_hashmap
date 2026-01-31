@@ -1,6 +1,7 @@
 /// Assembly hash function using inline assembly
 /// Takes first 2 bytes and last 2 bytes of the input
 /// Returns: combined u32 hash value or 80 on error (string too short)
+#[cfg(target_os = "linux")]
 #[inline(always)]
 pub unsafe fn look_up_identifier(data: *const u8, len: usize) -> u32 {
     // SAFETY: The caller must ensure `data` is valid for reading `len` bytes
@@ -27,6 +28,41 @@ pub unsafe fn look_up_identifier(data: *const u8, len: usize) -> u32 {
             in("rdi") data,
             in("rsi") len,
             lateout("eax") result,
+            // clobbered registers
+            clobber_abi("system")
+        );
+        result
+    }
+}
+
+#[cfg(target_os = "macos")]
+#[inline(always)]
+pub unsafe fn look_up_identifier(data: *const u8, len: usize) -> u32 {
+    // SAFETY: The caller must ensure `data` is valid for reading `len` bytes
+    unsafe {
+        let result: u32;
+        std::arch::asm!(
+            // Check if length >= 4
+            "cmp {len}, #4",
+            "b.lo 2f",                      // Jump to failure if below (unsigned less)
+
+            // Success case: compute hash
+            "ldrh w0, [{data}]",           // Load first 2 bytes
+            "sub x1, {len}, #2",
+            "ldrh w2, [{data}, x1]",       // Load last 2 bytes
+            "lsl w0, w0, #16",             // Shift to upper half
+            "orr w0, w0, w2",              // Combine
+            "b 3f",                        // Jump to end
+
+            // Failure case: return error code 80
+            "2:",
+            "mov w0, #80",
+
+            // End
+            "3:",
+            data = in(reg) data,
+            len = in(reg) len,
+            lateout("w0") result,
             // clobbered registers
             clobber_abi("system")
         );
