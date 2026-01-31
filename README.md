@@ -24,6 +24,9 @@ LLVM version: 21.1.3
 OS: Ubuntu 25.10 (Questing Quokka) x86_64
 ```
 
+# ChatGPT로 코드 리뷰 받고 더 최적화
+- https://github.com/YoungHaKim7/custom_hashmap/commit/de36bbc8529fdeae1a906a83c8c9e77f44e66a71
+
 # Assembly 기존거 ->  AssemblyCode로 변환 
 
 ```rs
