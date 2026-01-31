@@ -166,5 +166,5 @@ fn test_empty() {
 
 #[test]
 fn test_chache_size() {
-    assert_eq!(CHACHE_SIZE, 128);
+    assert_eq!(CACHE_SIZE, 128);
 }

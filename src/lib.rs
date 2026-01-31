@@ -6,7 +6,7 @@ mod hash;
 // Re-export the AssemblyHash trait so users can use it
 pub use hash::AssemblyHash;
 
-pub const CHACHE_SIZE: usize = 128;
+pub const CACHE_SIZE: usize = 128;
 
 struct Entry<K, V> {
     key: K,
