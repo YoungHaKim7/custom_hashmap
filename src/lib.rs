@@ -1,6 +1,10 @@
 use std::collections::HashMap;
+use std::hash::Hash;
 
 mod hash;
+
+// Re-export the AssemblyHash trait so users can use it
+pub use hash::AssemblyHash;
 
 pub const CHACHE_SIZE: usize = 128;
 
@@ -21,7 +25,7 @@ pub struct LRUCache<K, V> {
 
 impl<K, V> LRUCache<K, V>
 where
-    K: Eq + AssemblyHash + Clone,
+    K: Eq + Hash + Clone,
 {
     pub fn new(capacity: usize) -> Self {
         LRUCache {

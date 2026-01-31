@@ -4,6 +4,8 @@
 # Result
 
 ```bash
+Hash of 'hello': 1701343084
+Hash of 'ab' (error case): 80
 
 ```
 
