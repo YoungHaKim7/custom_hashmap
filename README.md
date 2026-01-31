@@ -9,6 +9,19 @@ Hash of 'ab' (error case): 80
 
 ```
 
+# test환경
+
+```bash
+$ rustc --verbose --version
+rustc 1.92.0 (ded5c06cf 2025-12-08)
+binary: rustc
+commit-hash: ded5c06cf21d2b93bffd5d884aa6e96934ee4234
+commit-date: 2025-12-08
+host: x86_64-unknown-linux-gnu
+release: 1.92.0
+LLVM version: 21.1.3
+```
+
 # All 12 tests pass. Here's a summary of the test coverage:
 
   |              Test               |                                   Description                                    |
