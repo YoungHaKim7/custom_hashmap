@@ -155,13 +155,13 @@ fn test_capacity_of_one() {
 #[test]
 fn test_empty() {
     let mut cache: LRUCache<i32, i32> = LRUCache::new(3);
-    assert!(cache.empty());
+    assert!(cache.is_empty());
 
     cache.insert(1, 10);
-    assert!(!cache.empty());
+    assert!(!cache.is_empty());
 
     cache.remove(&1);
-    assert!(cache.empty());
+    assert!(cache.is_empty());
 }
 
 #[test]

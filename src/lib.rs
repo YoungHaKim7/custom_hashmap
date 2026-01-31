@@ -83,8 +83,8 @@ where
         };
 
         match (prev, next) {
-            (Some(j), Some(k)) => {
-                let head = &mut self.entries[j];
+            (Some(j), Some(_k)) => {
+                let _head = &mut self.entries[j];
             }
             (Some(j), None) => {
                 let head = &mut self.entries[j];
@@ -153,7 +153,7 @@ where
             .and_then(move |&i| entries[i].val.as_mut())
     }
 
-    pub fn empty(&self) -> bool {
+    pub fn is_empty(&self) -> bool {
         self.map.is_empty()
     }
 
