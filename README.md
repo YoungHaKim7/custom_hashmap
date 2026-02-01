@@ -29,11 +29,27 @@ OS: Ubuntu 25.10 (Questing Quokka) x86_64
 
 # ⏺ The benchmark now compiles and runs successfully. The results show:
 
-  |    Benchmark     |   Time   |
-  |-|-|
-  | std Hashmap test | ~2.08 ns |
-  | std Hash         | ~313 ps  |
-  | my assembly hash │ ~314 ps  |
+|    Benchmark     |   Time   |
+|-|-|
+| std Hashmap test | ~2.08 ns |
+| std Hash         | ~313 ps  |
+| my assembly hash | ~314 ps  |
+
+- LRU은 망했네 ㅋㅋㅋ
+
+||std| custom HashMap|
+|-|-|-|
+|`Hashmap::new()`|2.05ns||
+|`Hash`|311.49ps|310.58ps|
+|`map.insert()`|40.456 µs|8.0636 µs|
+|`map.get()`|49.744 µs|8.8432 µs|
+|`LRU.insert()`| 235.42 µs| 5.7034 ms|
+
+
+- test 환경
+```bash
+Apple M1 Pro
+```
 
 - Your custom assembly hash performs almost identically to the standard library's `DefaultHasher`.
 
