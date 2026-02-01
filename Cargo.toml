@@ -8,7 +8,7 @@ criterion = "0.8.1"
 
 
 [[bench]]
-name = "std_hashmap_my_hashmap"
+name = "bench_main"
 harness = false
 
 [profile.test]

@@ -1,24 +1,25 @@
-use criterion::{Criterion, criterion_group, criterion_main};
+use criterion::{Criterion, criterion_group};
 use std::collections::hash_map::DefaultHasher;
 use std::hash::{Hash, Hasher};
 
 use custom_hashmap::AssemblyHash;
 
-fn all(c: &mut Criterion) {
-    c.bench_function("std Hashmap test", |b| {
+pub fn assembly_hash_compare(c: &mut Criterion) {
+    let mut group = c.benchmark_group("assembly hash test");
+    group.bench_function("std Hashmap test", |b| {
         b.iter(|| std::collections::HashMap::<u32, u32>::new());
     });
-    c.bench_function("std Hash", |b| {
+    group.bench_function("std Hash", |b| {
         b.iter(|| {
             let mut hasher = DefaultHasher::new();
             20u32.hash(&mut hasher);
             hasher.finish()
         });
     });
-    c.bench_function("my assembly hash", |b| {
+    group.bench_function("my assembly hash", |b| {
         b.iter(|| 20u32.assembly_hash());
     });
+    group.finish();
 }
 
-criterion_group!(g, all);
-criterion_main!(g);
+criterion_group!(benches, assembly_hash_compare);

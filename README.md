@@ -27,6 +27,16 @@ LLVM version: 21.1.3
 OS: Ubuntu 25.10 (Questing Quokka) x86_64
 ```
 
+# ⏺ The benchmark now compiles and runs successfully. The results show:
+
+  |    Benchmark     |   Time   |
+  |-|-|
+  | std Hashmap test | ~2.08 ns |
+  | std Hash         | ~313 ps  |
+  | my assembly hash │ ~314 ps  |
+
+- Your custom assembly hash performs almost identically to the standard library's `DefaultHasher`.
+
 # `cargo bench`
 
 ```bash
@@ -41,6 +51,8 @@ OS: Ubuntu 25.10 (Questing Quokka) x86_64
   - std Hashmap test: ~2.07 ns
   - my assembly hash: ~313 ps
 ```
+
+
 
 - `cargo bench` 거의 차이 안나네 ㅋㅋㅋ
 
